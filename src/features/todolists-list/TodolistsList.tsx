@@ -14,7 +14,6 @@ import { useActions } from "common/hooks";
 import { selectIsLoggedIn } from "features/auth/auth.selectors";
 import { selectTasks } from "features/todolists-list/tasks/model/tasks.selectors";
 import { selectTodolists } from "features/todolists-list/todolists/model/todolists.selectors";
-import { TaskStatuses } from "common/enums";
 
 export const TodolistsList = () => {
   const todolists = useSelector(selectTodolists);
@@ -28,7 +27,7 @@ export const TodolistsList = () => {
     changeTodolistTitle: changeTodolistTitleThunk,
   } = useActions(todolistsThunks);
 
-  const { addTask: addTaskThunk, updateTask } = useActions(tasksThunks);
+  const { addTask: addTaskThunk } = useActions(tasksThunks);
   const { changeTodolistFilter } = useActions(todolistsActions);
 
   useEffect(() => {
@@ -39,14 +38,6 @@ export const TodolistsList = () => {
   }, []);
   const addTask = useCallback(function (title: string, todolistId: string) {
     addTaskThunk({ title, todolistId });
-  }, []);
-
-  const changeStatus = useCallback(function (taskId: string, status: TaskStatuses, todolistId: string) {
-    updateTask({ taskId, domainModel: { status }, todolistId });
-  }, []);
-
-  const changeTaskTitle = useCallback(function (taskId: string, title: string, todolistId: string) {
-    updateTask({ taskId, domainModel: { title }, todolistId });
   }, []);
 
   const changeFilter = useCallback(function (filter: FilterValuesType, id: string) {
@@ -86,9 +77,7 @@ export const TodolistsList = () => {
                   tasks={allTodolistTasks}
                   changeFilter={changeFilter}
                   addTask={addTask}
-                  changeTaskStatus={changeStatus}
                   removeTodolist={removeTodolist}
-                  changeTaskTitle={changeTaskTitle}
                   changeTodolistTitle={changeTodolistTitle}
                 />
               </Paper>
