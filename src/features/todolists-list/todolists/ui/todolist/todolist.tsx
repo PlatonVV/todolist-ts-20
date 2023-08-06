@@ -1,4 +1,4 @@
-import React, { FC, memo, useCallback, useEffect } from "react";
+import React, { FC, memo, useEffect } from "react";
 import { TodolistDomainType } from "features/todolists-list/todolists/model/todolists.reducer";
 import { tasksThunks } from "features/todolists-list/tasks/model/tasks.reducer";
 import { useActions } from "common/hooks";
@@ -21,7 +21,9 @@ export const Todolist: FC<Props> = memo(function ({ todolist, tasks }) {
     fetchTasks(todolist.id);
   }, []);
 
-  const addTaskCallBack = useCallback((title: string) => addTask({ title, todolistId: todolist.id }), []);
+  const addTaskCallBack = (title: string) => {
+    return addTask({ title, todolistId: todolist.id }).unwrap();
+  };
 
   return (
     <div>

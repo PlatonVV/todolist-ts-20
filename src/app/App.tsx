@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Menu } from "@mui/icons-material";
-import { Login } from "features/auth/Login/Login";
+import { Login } from "features/auth/login/login";
 import "./App.css";
 import { TodolistsList } from "features/todolists-list/todolists-list";
 import { ErrorSnackbar } from "common/components";
