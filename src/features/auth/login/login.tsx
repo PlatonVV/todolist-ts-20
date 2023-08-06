@@ -3,20 +3,18 @@ import { FormikHelpers, useFormik } from "formik";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField } from "@mui/material";
-import {useActions, useAppDispatch} from 'common/hooks';
+import { useActions } from "common/hooks";
 import { selectIsLoggedIn } from "features/auth/auth.selectors";
 import { authThunks } from "features/auth/auth.reducer";
 import { LoginParamsType } from "features/auth/auth.api";
 import { ResponseType } from "common/types";
 import s from "./styles.module.css";
 
-type FormikErrorType = Partial<Omit<LoginParamsType, 'captcha'>>
-
+type FormikErrorType = Partial<Omit<LoginParamsType, "captcha">>;
 
 export const Login = () => {
-
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const {login} = useActions(authThunks)
+  const { login } = useActions(authThunks);
 
   const formik = useFormik({
     validate: (values) => {
