@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField } from "@mui/material";
 import { useActions } from "common/hooks";
 import { selectIsLoggedIn } from "features/auth/auth.selectors";
-import { authThunks } from "features/auth/auth.reducer";
+import { authThunks } from "features/auth/auth.slice";
 import { LoginParamsType } from "features/auth/auth.api";
 import { ResponseType } from "common/types";
 import s from "./styles.module.css";

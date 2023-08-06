@@ -4,7 +4,7 @@ import {
   FilterValuesType,
   TodolistDomainType,
   todolistsActions,
-} from "features/todolists-list/todolists/model/todolists.reducer";
+} from "features/todolists-list/todolists/model/todolists.slice";
 import { useActions } from "common/hooks";
 
 type Props = {

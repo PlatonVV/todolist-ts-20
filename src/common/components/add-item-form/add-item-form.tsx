@@ -1,7 +1,7 @@
 import React, { ChangeEvent, KeyboardEvent, memo, useState } from "react";
 import { IconButton, TextField } from "@mui/material";
 import { AddBox } from "@mui/icons-material";
-import { ResponseType } from "common/types";
+import { RejectValueType } from "common/utils/create-app-async-thunk";
 
 type AddItemFormPropsType = {
   addItem: (title: string) => Promise<any>;
@@ -18,9 +18,11 @@ export const AddItemForm = memo(({ addItem, disabled = false }: AddItemFormProps
         .then(() => {
           setTitle("");
         })
-        .catch((err: ResponseType) => {
-          debugger;
-          setError(err.messages[0]);
+        .catch((err: RejectValueType) => {
+          if (err.data) {
+            const messages = err.data.messages;
+            setError(messages.length ? messages[0] : "Some error occurred");
+          }
         });
     } else {
       setError("Title is required");
@@ -35,7 +37,7 @@ export const AddItemForm = memo(({ addItem, disabled = false }: AddItemFormProps
     if (error !== null) {
       setError(null);
     }
-    if (e.charCode === 13) {
+    if (e.key === "Enter") {
       addItemHandler();
     }
   };
@@ -48,7 +50,7 @@ export const AddItemForm = memo(({ addItem, disabled = false }: AddItemFormProps
         error={!!error}
         value={title}
         onChange={onChangeHandler}
-        onKeyPress={onKeyPressHandler}
+        onKeyDown={onKeyPressHandler}
         label="Title"
         helperText={error}
       />

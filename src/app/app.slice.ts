@@ -37,8 +37,16 @@ const slice = createSlice({
         (action) => {
           return action.type.endsWith("/rejected");
         },
-        (state) => {
+        (state, action) => {
           state.status = "failed";
+          const { payload, error } = action;
+          if (payload) {
+            if (payload.showGlobalError) {
+              state.error = payload.data.messages.length ? payload.data.messages[0] : "Some error occurred";
+            }
+          } else {
+            state.error = error.message ? error.message : "Some error occurred";
+          }
         }
       )
       .addMatcher(
@@ -52,5 +60,5 @@ const slice = createSlice({
   },
 });
 
-export const appReducer = slice.reducer;
+export const appSlice = slice.reducer;
 export const appActions = slice.actions;
